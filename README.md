@@ -7,4 +7,8 @@ Development of an online ticketing platform using Python, Django and Postgres, f
 - Admin: edit login credentials; manage users; add and hide events/venues/sessions
 
 ## Examples
-<img src="images/homepage.jpg" width="450"/> <img src="images/homepage.jpg" width="450"/>
+<img src="images/homepage.jpg" width="400"/>
+<img src="images/procura.jpg" width="400"/>
+<img src="images/rooms.jpg" width="400"/>
+<img src="images/tickets.jpg" width="400"/>
+<img src="images/register_page.jpg" width="400"/>
