@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sessions</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .general-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #container {
+            display: flex;
+        }
+
+        #user {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div> 
+        <a href="/appEvents/events">Home</a>
+        {% for session in sessions %}
+        <div class="sessions">
+            <h2 class = "general-title">{{session.event.name}}</h2>
+            <p>{{session.datesession}}</p>
+            <p>{{session.hour}}</p>
+            <a href="/appEvents/events/{{session.event.id}}">Event Info</a>
+            <a href="/appEvents/events/{{session.event.id}}/choose_session/{{session.id}}">Ticket Info</a>
+        </div>
+        {% endfor %}
+     </div>
+
+    <div id="user">
+        {% if request.user.is_authenticated %}
+            <p>{{ request.user.username }}</p>
+            <a href="/appEvents/logout">Logout</a>
+        {% else %}
+            <a href="/appEvents/login">Login</a>
+            <a href="/appEvents/registration">Signup</a>
+        {% endif %}
+     </div>
+    
+</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Session</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        li a {
+            text-decoration: none;
+            color: black; 
+        }
+        li:hover {
+            background-color: #f0f0f0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ event.name }}</h1>
+        <h2>Sessão</h2>
+        <p>Selecione a sessão que deseja:</p>
+        <ul>
+            {% for session in sessions %}
+            <li><a href="{% url 'choose_tickets' event_id=event.id session_id=session.id %}">
+                <strong>Data:</strong> {{ session.datesession }} -
+                <strong>Hora:</strong> {{ session.hour }}
+            </a></li>
+            {% empty %}
+                <li>Sem sessões disponíveis.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

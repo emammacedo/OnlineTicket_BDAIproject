@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms</title>
+    <h2>Rooms Information</h2>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .general-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #container {
+            display: flex;
+        }
+
+        .room-info {
+            text-align: left;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #user {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div>
+            <div>
+                <a href="/appEvents/events">Home</a>
+                {% for room in rooms %}
+                    <div class="ticket-info">
+                        
+                        <h2 class = "general-title">{{room.name}}</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Venue Name</th>
+                                    <th>City</th>
+                                    <th>Street</th>
+                                    <th>Number</th>
+                                    <th>Postal Code</th>
+                                    <th>Phone Number</th>
+                                    <th>Email</th>
+                                    <th>More Info</th>
+                                </tr>
+                            </thead>
+                            <tbody>        
+                                <tr>
+                                    <td>{{room.venue.name}}</td>
+                                    <td>{{room.venue.city}}</td>
+                                    <td>{{room.venue.street}}</td>
+                                    <td>{{room.venue.number}}</td>
+                                    <td>{{room.venue.postal_code}}</td>
+                                    <td>{{room.venue.phonenumber}}</td>
+                                    <td>{{room.venue.email}}</td>
+                                    <td><a href="rooms/{{room.id}}/ticketsRoom">Room Information</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                {% endfor %}
+            </div>
+     </div>
+
+    <div id="user">
+        {% if request.user.is_authenticated %}
+            <p>{{ request.user.username }}</p>
+            <a href="/appEvents/logout">Logout</a>
+        {% else %}
+            <a href="/appEvents/login">Login</a>
+            <a href="/appEvents/registration">Signup</a>
+        {% endif %}
+     </div>
+    
+</div>
+</body>
+</html>

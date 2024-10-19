@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Tickets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+        .container {
+            width: 80%;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .general-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .room-info, .ticket-info {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+        }
+        .room-info {
+            text-align: center;
+        }
+        .ticket-info {
+            text-align: left;
+        }
+        .ticket-info a {
+            text-decoration: none;
+            color: black; 
+        }
+        .ticket-info a:hover {
+            text-decoration: underline; 
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .room-chart {
+            width: 100%;
+            max-width: 300px;
+            margin: auto; 
+            display: block; 
+        }        
+    </style>
+</head>
+<body>
+    <h1 class="general-title">{{ event.name }}</h1>
+
+    <div class="container">
+        <div class="room-info">
+            <h2>{{ event.room.name }}</h2>
+            <img src="{{ event.room.seatingchart }}" alt="Seating Chart" class="room-chart">
+        </div>
+        
+        <div class="ticket-info">
+            <h2>Bilhetes e preços</h2>
+            <p>Selecione o bilhete que deseja:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bilhete</th>
+                        <th>Preço (€)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in event.room.ticket_set.all %}
+                        <tr>
+                            <td><a href="{% url 'choose_qty_seats' event_id=event.id session_id=id_my_session ticket_id=ticket.id %}">{{ ticket.type }}</a></td>
+                            <td>{{ ticket.price }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3">No tickets available</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

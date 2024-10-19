@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <title>{{event.name}}</title>
+    </head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+        }
+        .general-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 50%; /* Adjusted width for the table */
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #poster {
+            margin-right: 5%; /* Added margin for separation */
+        }
+
+        .poster img {
+            width: 100%;
+            max-width: 600px;
+            height: 600px;
+            border-radius: 5px;
+            margin-top: 60px;
+        }
+
+        #user {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+    <body>
+        <div id="user">
+            {% if request.user.is_authenticated %}
+                <p>{{ request.user.username }}</p>
+                <a href="/appEvents/logout">Logout</a>
+            {% else %}
+                <a href="/appEvents/login">Login</a>
+                <a href="/appEvents/registration">Signup</a>
+            {% endif %}
+        </div>
+    
+        <h1  class="general-title">{{event.name}} details</h1>
+        <a href="/appEvents/events">Home</a>
+        <div class="container"> <!-- Updated to use the class 'container' -->
+            <div id="poster">
+                <img src={{event.poster}} alt={{event.name}}-{{event.poster}} style="width:auto;">
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Duration</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Minimum Age</th>
+                        <th>Room</th>
+                        <th>Sessions</th>
+                        <th>Buy</th>
+                    </tr>
+                </thead>
+                <tbody>        
+                    <tr>
+                        <td> {{event.duration}}</td>
+                        <td>{{event.type}}</td>
+                        <td>{{event.description}}</td>
+                        <td>{{event.minimumage}}</td>
+                        <td>{{event.room.name}}</td>
+                        <td>
+                            {% for session in sessions %}
+                                {{session.datesession}} at {{session.hour}}
+                            {% endfor %}    
+                        </td>
+                        <td>
+                            <a href="{% url 'choose_session' event_id=event.id %}">Buy</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </body>
+</html>
